@@ -21,10 +21,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
-
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::resource('knife-types', KnifeTypeController::class)->except(['show']);
@@ -38,3 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{listing}', [CartController::class, 'add'])->name('cart.add');
     Route::delete('/cart/delete/{cart}', [CartController::class, 'delete'])->name('cart.delete');
 });
+
+Route::redirect('/', '/listings');
