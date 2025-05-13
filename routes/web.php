@@ -4,13 +4,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\KnifeController;
 use App\Http\Controllers\KnifeTypeController;
 use App\Http\Controllers\ListingController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'form'])->name('auth.loginForm');
@@ -35,4 +32,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/delete/{cart}', [CartController::class, 'delete'])->name('cart.delete');
 });
 
-Route::redirect('/', '/listings');
+Route::get('/', function () {
+    if (!Auth::check()) {
+        return redirect()->route('auth.loginForm');
+    }
+
+    $user = Auth::user();
+
+    if ($user->is_admin) {
+        return redirect()->route('knife-types.index');
+    }
+
+    return redirect()->route('listings.index');
+});
