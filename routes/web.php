@@ -31,7 +31,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('knives', KnifeController::class);
 
-
     Route::resource('listings', ListingController::class);
     Route::get('/my-listings', [ListingController::class, 'myListings'])->name('listings.my');
 

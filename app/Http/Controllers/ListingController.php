@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Knife\StoreListingRequest;
 use App\Http\Requests\Knife\UpdateListingRequest;
 use App\Models\Knife;
+use App\Models\KnifeType;
 use App\Models\Listing;
 use App\Services\ListingService;
 use App\Traits\HasAuthUser;
@@ -24,17 +25,14 @@ class ListingController extends Controller
         $this->authorize('viewAny', Listing::class);
 
         $user = $this->getAuthUser();
+        $filters = request()->only(['knife_type_id', 'q']);
 
-        $listings = Listing::with(['knife', 'user'])
-            ->whereNot('user_id', $user->id)
-            ->latest()
-            ->get();
-
+        $listings = $this->service->getFilteredListings($filters, $user);
         $cartItemIds = $user->cart()->pluck('listing_id')->toArray();
+        $knifeTypes = \App\Models\KnifeType::all();
 
-        return view('listings.index', compact('listings', 'cartItemIds'));
+        return view('listings.index', compact('listings', 'cartItemIds', 'knifeTypes'));
     }
-
 
     public function myListings(): View
     {

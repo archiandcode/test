@@ -8,6 +8,29 @@
 
 @section('content')
     <div class="container-fluid">
+        <form method="GET" class="mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="knife_type_id" class="form-control">
+                        <option value="">— Все типы ножей —</option>
+                        @foreach($knifeTypes as $type)
+                            <option value="{{ $type->id }}" {{ request('knife_type_id') == $type->id ? 'selected' : '' }}>
+                                {{ $type->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="q" class="form-control" placeholder="Поиск по названию ножа"
+                           value="{{ request('q') }}">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary" type="submit">Фильтр</button>
+                    <a href="{{ route('listings.index') }}" class="btn btn-outline-secondary">Сброс</a>
+                </div>
+            </div>
+        </form>
+
         <div class="row">
             @forelse($listings as $listing)
                 <div class="col-md-3 mb-4">

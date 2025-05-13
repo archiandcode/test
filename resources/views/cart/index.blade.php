@@ -7,6 +7,12 @@
 @endsection
 
 @section('content')
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
     <div class="container-fluid">
         @if($carts->isEmpty())
             <div class="alert alert-info">Корзина пуста.</div>

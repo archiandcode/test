@@ -9,7 +9,12 @@ class StoreListingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => ['required', 'numeric', 'min:0'],
+            'price' => [
+                'required',
+                'numeric',
+                'min:1',
+                'regex:/^\d{1,16}(\.\d{1,2})?$/',
+            ],
             'knife_id' => ['required', 'exists:knives,id'],
         ];
     }

@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\Listing;
+use App\Models\User;
 use App\Traits\HasAuthUser;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListingService
 {
@@ -29,5 +31,25 @@ class ListingService
     public function delete(Listing $listing): bool
     {
         return $listing->delete();
+    }
+
+    public function getFilteredListings(array $filters, User $user): Collection
+    {
+        $query = Listing::with(['knife', 'user', 'knife.knifeType'])
+            ->whereNot('user_id', $user->id);
+
+        if (!empty($filters['knife_type_id'])) {
+            $query->whereHas('knife', function ($q) use ($filters) {
+                $q->where('knife_type_id', $filters['knife_type_id']);
+            });
+        }
+
+        if (!empty($filters['q'])) {
+            $query->whereHas('knife', function ($q) use ($filters) {
+                $q->where('name', 'like', '%' . $filters['q'] . '%');
+            });
+        }
+
+        return $query->latest()->get();
     }
 }

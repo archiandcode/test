@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 20, 2);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('knife_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

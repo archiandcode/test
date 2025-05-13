@@ -22,10 +22,10 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'password' => $request->input('password'),
         ]);
 
         Auth::login($user);
-        return redirect('/dashboard');
+        return redirect()->route('listings.index');
     }
 }

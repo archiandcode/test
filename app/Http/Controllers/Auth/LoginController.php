@@ -21,13 +21,21 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+
+            $user = Auth::user();
+
+            if ($user->is_admin) {
+                return redirect()->route('knife-types.index');
+            }
+
+            return redirect()->route('listings.index');
         }
 
         return back()->withErrors([
             'email' => 'Неверный логин или пароль.',
         ]);
     }
+
 
     public function logout(): RedirectResponse
     {
