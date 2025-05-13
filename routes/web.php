@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\KnifeController;
+use App\Http\Controllers\KnifeTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -22,4 +24,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::resource('knife-types', KnifeTypeController::class)->except(['show']);
+
+    Route::resource('knives', KnifeController::class);
 });
