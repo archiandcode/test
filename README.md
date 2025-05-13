@@ -1,35 +1,34 @@
-## Тестовое 
+## Тестовое
 ### https://knives.arshidin.kz/login
 
 ## Скриншоты
 
 ### Вход
-![login](public/images/screenshots/login.png)
+<img src="public/screenshots/login.png" width="600"/>
 
 ### Регистрация
-![register](public/images/screenshots/register.png)
+<img src="public/screenshots/register.png" width="600"/>
 
 ### Админ – список типов ножей
-![admin1](public/images/screenshots/admin1.png)
+<img src="public/screenshots/admin1.png" width="600"/>
 
 ### Админ – список ножей
-![admin2](public/images/screenshots/admin2.png)
+<img src="public/screenshots/admin2.png" width="600"/>
 
 ### Админ – добавить нож
-![admin3](public/images/screenshots/admin3.png)
+<img src="public/screenshots/admin3.png" width="600"/>
 
 ### Пользователь – список объявлений
-![user1](public/images/screenshots/user1.png)
+<img src="public/screenshots/user1.png" width="600"/>
 
 ### Пользователь – мои объявления
-![user2](public/images/screenshots/user2.png)
+<img src="public/screenshots/user2.png" width="600"/>
 
 ### Пользователь – корзина
-![user3](public/images/screenshots/user3.png)
+<img src="public/screenshots/user3.png" width="600"/>
 
 ### Пользователь – добавить объявление
-![user4](public/images/screenshots/user4.png)
-
+<img src="public/screenshots/user4.png" width="600"/>
 
 Данные для входа в роли Админа(если нужно):
 email: arshi@gmail.com
