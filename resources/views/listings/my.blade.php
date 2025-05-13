@@ -3,7 +3,12 @@
 @section('title', 'Мои объявления')
 
 @section('content_header')
-    <h1>Мои объявления</h1>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="mb-0">Мои объявления</h1>
+        <a href="{{ route('listings.create') }}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Добавить объявление
+        </a>
+    </div>
 @endsection
 
 @section('content')

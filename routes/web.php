@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\KnifeController;
 use App\Http\Controllers\KnifeTypeController;
 use App\Http\Controllers\ListingController;
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('listings', ListingController::class);
     Route::get('/my-listings', [ListingController::class, 'myListings'])->name('listings.my');
-});
 
-Route::get('knives/search', [KnifeController::class, 'search'])->name('knives.search');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{listing}', [CartController::class, 'add'])->name('cart.add');
+    Route::delete('/cart/delete/{cart}', [CartController::class, 'delete'])->name('cart.delete');
+});

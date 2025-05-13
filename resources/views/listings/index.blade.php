@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Объявления')
+@section('title', 'Каталог объявлений')
 
 @section('content_header')
-    <h1>Ножи</h1>
+    <h1>Каталог ножей</h1>
 @endsection
 
 @section('content')
@@ -27,6 +27,22 @@
                             </p>
                         </div>
 
+                        <div class="card-footer text-center py-2">
+                            @if(in_array($listing->id, $cartItemIds))
+                                <button class="btn btn-sm btn-secondary" disabled>
+                                    Добавлено в корзину
+                                </button>
+                            @else
+                                <button
+                                    class="btn btn-sm btn-success btn-add-to-cart"
+                                    data-id="{{ $listing->id }}"
+                                    id="cart-btn-{{ $listing->id }}"
+                                >
+                                    Добавить в корзину
+                                </button>
+                            @endif
+                        </div>
+
 
 
                     </div>
@@ -38,4 +54,38 @@
             @endforelse
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.btn-add-to-cart');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const listingId = this.getAttribute('data-id');
+                    const btn = this;
+
+                    fetch(`/cart/add/${listingId}`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            btn.classList.remove('btn-success');
+                            btn.classList.add('btn-secondary');
+                            btn.disabled = true;
+                            btn.textContent = 'Добавлено в корзину';
+                        } else {
+                            alert('Ошибка при добавлении в корзину.');
+                        }
+                    }).catch(() => {
+                        alert('Ошибка соединения с сервером.');
+                    });
+                });
+            });
+        });
+    </script>
 @endsection

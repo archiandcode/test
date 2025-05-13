@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('listings.index') }}" class="btn btn-warning">
+                        <a href="{{ route('listings.my') }}" class="btn btn-warning">
                             <i class="fa fa-arrow-left"></i> Назад
                         </a>
                     </div>

@@ -328,6 +328,13 @@ return [
             'can'  => 'menu-user',
             'active' => ['my-listings'],
         ],
+        [
+            'text' => 'Корзина',
+            'url'  => 'cart',
+            'icon' => 'fas fa-shopping-cart',
+            'can'  => 'menu-user',
+            'active' => ['cart'],
+        ],
 
     ],
 

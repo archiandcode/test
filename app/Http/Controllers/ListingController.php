@@ -23,9 +23,18 @@ class ListingController extends Controller
     {
         $this->authorize('viewAny', Listing::class);
 
-        $listings = Listing::with(['knife', 'user'])->latest()->get();
-        return view('listings.index', compact('listings'));
+        $user = $this->getAuthUser();
+
+        $listings = Listing::with(['knife', 'user'])
+            ->whereNot('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        $cartItemIds = $user->cart()->pluck('listing_id')->toArray();
+
+        return view('listings.index', compact('listings', 'cartItemIds'));
     }
+
 
     public function myListings(): View
     {
