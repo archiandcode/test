@@ -6,6 +6,7 @@ use App\Http\Requests\KnifeRequest;
 use App\Models\Knife;
 use App\Models\KnifeType;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -13,24 +14,32 @@ class KnifeController extends Controller
 {
     public function index(): View
     {
+        Gate::authorize('menu-admin');
+
         $knives = Knife::with('knifeType')->get();
         return view('admin.knives.index', compact('knives'));
     }
 
     public function show(Knife $knife): View
     {
+        Gate::authorize('menu-admin');
+
         $knife->load('knifeType');
         return view('admin.knives.show', compact('knife'));
     }
 
     public function create(): View
     {
+        Gate::authorize('menu-admin');
+
         $types = KnifeType::all();
         return view('admin.knives.create', compact('types'));
     }
 
     public function store(KnifeRequest $request): RedirectResponse
     {
+        Gate::authorize('menu-admin');
+
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -44,12 +53,16 @@ class KnifeController extends Controller
 
     public function edit(Knife $knife): View
     {
+        Gate::authorize('menu-admin');
+
         $types = KnifeType::all();
         return view('admin.knives.edit', compact('knife', 'types'));
     }
 
     public function update(KnifeRequest $request, Knife $knife): RedirectResponse
     {
+        Gate::authorize('menu-admin');
+
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -67,6 +80,8 @@ class KnifeController extends Controller
 
     public function destroy(Knife $knife): RedirectResponse
     {
+        Gate::authorize('menu-admin');
+
         if ($knife->image) {
             Storage::disk('public')->delete($knife->image);
         }
