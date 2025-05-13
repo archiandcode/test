@@ -29,7 +29,7 @@ class ListingController extends Controller
 
         $listings = $this->service->getFilteredListings($filters, $user);
         $cartItemIds = $user->cart()->pluck('listing_id')->toArray();
-        $knifeTypes = \App\Models\KnifeType::all();
+        $knifeTypes = KnifeType::all();
 
         return view('listings.index', compact('listings', 'cartItemIds', 'knifeTypes'));
     }

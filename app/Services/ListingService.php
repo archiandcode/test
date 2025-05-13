@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\User;
 use App\Traits\HasAuthUser;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ListingService
 {
@@ -33,7 +34,7 @@ class ListingService
         return $listing->delete();
     }
 
-    public function getFilteredListings(array $filters, User $user): Collection
+    public function getFilteredListings(array $filters, User $user): LengthAwarePaginator
     {
         $query = Listing::with(['knife', 'user', 'knife.knifeType'])
             ->whereNot('user_id', $user->id);
@@ -50,6 +51,6 @@ class ListingService
             });
         }
 
-        return $query->latest()->get();
+        return $query->latest()->paginate(20);
     }
 }

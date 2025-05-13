@@ -75,6 +75,9 @@
                     <div class="alert alert-info">Нет доступных объявлений.</div>
                 </div>
             @endforelse
+            <div class="col-12 d-flex justify-content-center mt-4">
+                {{ $listings->links('includes.pagination') }}
+            </div>
         </div>
     </div>
 @endsection

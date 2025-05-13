@@ -16,7 +16,7 @@ class KnifeController extends Controller
     {
         Gate::authorize('menu-admin');
 
-        $knives = Knife::with('knifeType')->get();
+        $knives = Knife::with('knifeType')->paginate(15);
         return view('admin.knives.index', compact('knives'));
     }
 

@@ -88,7 +88,7 @@
                                 </tr>
                                 </tfoot>
                             </table>
-
+                            {{ $knives->links('includes.pagination') }}
                         </div>
                     </div>
                 </div>
