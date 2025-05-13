@@ -314,6 +314,21 @@ return [
             'can'  => 'menu-admin',
             'active' => ['knives*'],
         ],
+        [
+            'text' => 'Каталог объявлений',
+            'url'  => 'listings',
+            'icon' => 'fas fa-store',
+            'can'  => 'menu-user',
+            'active' => ['listings', 'listings/*'],
+        ],
+        [
+            'text' => 'Мои объявления',
+            'url'  => 'my-listings',
+            'icon' => 'fas fa-user-tag',
+            'can'  => 'menu-user',
+            'active' => ['my-listings'],
+        ],
+
     ],
 
 

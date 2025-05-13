@@ -21,12 +21,16 @@ class ListingController extends Controller
 
     public function index(): View
     {
+        $this->authorize('viewAny', Listing::class);
+
         $listings = Listing::with(['knife', 'user'])->latest()->get();
         return view('listings.index', compact('listings'));
     }
 
     public function myListings(): View
     {
+        $this->authorize('viewAny', Listing::class);
+
         $user = $this->getAuthUser();
 
         $listings = $user->listings()
@@ -39,37 +43,50 @@ class ListingController extends Controller
 
     public function create(): View
     {
+        $this->authorize('create', Listing::class);
+
         $knives = Knife::with('knifeType')->get()->groupBy('knife_type_id');
         return view('listings.create', compact('knives'));
     }
 
     public function store(StoreListingRequest $request): RedirectResponse
     {
+        $this->authorize('create', Listing::class);
+
         $this->service->store($request->validated());
         return redirect()->route('listings.my')->with('success', 'Объявление добавлено');
     }
 
     public function show(Listing $listing): View
     {
+        $this->authorize('view', $listing);
+
         $listing->load(['knife', 'knifeType', 'user']);
         return view('listings.show', compact('listing'));
     }
 
     public function edit(Listing $listing): View
     {
+        $this->authorize('update', $listing);
+
         $knives = Knife::with('knifeType')->get()->groupBy('knife_type_id');
         return view('listings.edit', compact('listing', 'knives'));
     }
 
     public function update(UpdateListingRequest $request, Listing $listing): RedirectResponse
     {
+        $this->authorize('update', $listing);
+
         $this->service->update($listing, $request->validated());
         return redirect()->route('listings.my')->with('success', 'Объявление обновлено');
     }
 
     public function destroy(Listing $listing): RedirectResponse
     {
+        $this->authorize('delete', $listing);
+
         $this->service->delete($listing);
         return back()->with('success', 'Объявление удалено');
     }
+
 }
