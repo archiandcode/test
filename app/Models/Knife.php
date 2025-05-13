@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Knife extends Model
 {
     protected $fillable = [
-      'name', 'image',
+      'name', 'image', 'knife_type_id'
     ];
 
     public function knifeType(): BelongsTo
