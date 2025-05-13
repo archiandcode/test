@@ -15,4 +15,9 @@ class KnifeType extends Model
     {
         return $this->hasMany(Knife::class);
     }
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
+    }
 }

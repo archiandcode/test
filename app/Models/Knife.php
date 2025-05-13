@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Knife extends Model
 {
@@ -14,5 +15,10 @@ class Knife extends Model
     public function knifeType(): BelongsTo
     {
         return $this->belongsTo(KnifeType::class);
+    }
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
     }
 }

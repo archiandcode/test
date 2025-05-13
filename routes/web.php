@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KnifeController;
 use App\Http\Controllers\KnifeTypeController;
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -28,4 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('knife-types', KnifeTypeController::class)->except(['show']);
 
     Route::resource('knives', KnifeController::class);
+
+
+    Route::resource('listings', ListingController::class);
+    Route::get('/my-listings', [ListingController::class, 'myListings'])->name('listings.my');
 });
+
+Route::get('knives/search', [KnifeController::class, 'search'])->name('knives.search');
