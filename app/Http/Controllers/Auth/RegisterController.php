@@ -25,7 +25,7 @@ class RegisterController extends Controller
             'password' => $request->input('password'),
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
         return redirect()->route('listings.index');
     }
 }
